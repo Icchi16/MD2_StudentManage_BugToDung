@@ -1,10 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
-import Control from './components/Control';
-import ListStudents from './components/ListStudents';
-import Form from './components/Form';
-import { useEffect, useState } from 'react';
-let cnt =0;
+import logo from "./logo.svg";
+import "./App.css";
+import Control from "./components/Control";
+import ListStudents from "./components/ListStudents";
+import Form from "./components/Form";
+import { useEffect, useState } from "react";
+let cnt = 0;
 
 function App() {
   cnt++;
@@ -16,7 +16,7 @@ function App() {
       gender: true,
       birthDate: "2000/08/28",
       birthPlace: "HN",
-      address: "số 1 Cổ Nhuế"
+      address: "số 1 Cổ Nhuế",
     },
     {
       id: "SV002",
@@ -25,7 +25,7 @@ function App() {
       gender: false,
       birthDate: "1998/04/01",
       birthPlace: "HN",
-      address: "số 1 Cổ Nhuế"
+      address: "số 1 Cổ Nhuế",
     },
     {
       id: "SV003",
@@ -34,47 +34,51 @@ function App() {
       gender: true,
       birthDate: "1992/05/15",
       birthPlace: "HN",
-      address: "số 1 Cổ Nhuế"
-    }
-  ])
-  const [searchData, setSearchData] = useState("")
+      address: "số 1 Cổ Nhuế",
+    },
+  ]);
+  const [searchData, setSearchData] = useState("");
   const [sortData, setSortData] = useState({
     sortDir: "",
     sortBy: "",
-  })
+  });
   const recieveSearchData = (searchData) => {
-    setSearchData(searchData)
-  }
+    setSearchData(searchData);
+  };
 
-  const [display, setDisplay] = useState([])
+  const [display, setDisplay] = useState([]);
 
-  let sort = display
+  let sort = display;
   useEffect(() => {
-    if (sortData.sortDir == "name") {
-      if (sortData.sortBy == "ASC") {
-        sort.sort((a, b) => (a.name > b.name) ? 1 : (a.name < b.name) ? -1 : 0);
+    if (sortData.sortDir === "name") {
+      if (sortData.sortBy === "ASC") {
+        sort.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
       } else {
-        sort.sort((a, b) => (a.name > b.name) ? -1 : (a.name > b.name) ? 1 : 0);
+        sort.sort((a, b) => (a.name > b.name ? -1 : a.name > b.name ? 1 : 0));
       }
-    } else if (sortData.sortDir == "age") {
-      if (sortData.sortBy == "ASC") {
-        sort.sort((a, b) => a.age - b.age)
+    } else if (sortData.sortDir === "age") {
+      if (sortData.sortBy === "ASC") {
+        sort.sort((a, b) => a.age - b.age);
       } else {
-        sort.sort((a, b) => b.age - a.age)
+        sort.sort((a, b) => b.age - a.age);
       }
     }
-    
-    setDisplay(sort)
-    console.log("chayy 1");
-  }, [sortData]) 
+
+    setDisplay(sort);
+    // console.log("chayy 1");
+  }, [sortData]);
   // let studentsData = [];
   useEffect(() => {
     if (searchData == "") {
       setDisplay([...students]);
     } else {
-      setDisplay(students.filter((student) => student.name.toLowerCase().includes(searchData.toLowerCase())))
+      setDisplay(
+        students.filter((student) =>
+          student.name.toLowerCase().includes(searchData.toLowerCase())
+        )
+      );
     }
-  }, [searchData])
+  }, [searchData]);
   // if (searchData == "") {
   //   studentsData = [...students];
   // } else {
@@ -82,14 +86,14 @@ function App() {
   // }
 
   const recieveSortData = (sortDir, sortBy) => {
-    console.log("in");
+    // console.log("in");
     setSortData({
       sortDir: sortDir,
-      sortBy: sortBy
-    })
-  }
+      sortBy: sortBy,
+    });
+  };
 
-   // if (sortData.sortDir == "name") {
+  // if (sortData.sortDir == "name") {
   //   if (sortData.sortBy == "ASC") {
   //     studentsData.sort((a, b) => (a.name > b.name) ? 1 : (a.name < b.name) ? -1 : 0);
   //   } else {
@@ -102,18 +106,21 @@ function App() {
   //     studentsData.sort((b, a) => b.age - a.age)
   //   }
   // }
-console.log(display);
+  // console.log(display);
   return (
     <div className="App">
       <div className="row">
         <div className="col-lg-7 grid-margin stretch-card">
           <div className="card">
             {/* START CONTROL */}
-            <Control recieveSortData={recieveSortData} recieveSearchData={recieveSearchData} />
+            <Control
+              recieveSortData={recieveSortData}
+              recieveSearchData={recieveSearchData}
+            />
             {/* END CONTROL */}
             {/* START LIST STUDENT */}
             <ListStudents students={sort} />
-            {console.log("chay 2")}
+            {/* {console.log("chay 2")} */}
             {/* END LIST STUDENT */}
             {/* Modal */}
             {/* <Modal /> */}
